@@ -81,6 +81,8 @@ func _on_BulletDetector_body_entered(_body):
 	call_deferred("die")
 	
 func die():
+	if god_mode:
+		return
 	velocity = Vector2(0, 0)
 	$Timer.stop()
 	$AnimationPlayer.play("Die")

@@ -1,10 +1,14 @@
 extends KinematicBody2D
 
 onready var bullet_scene = load("res://scenes/enemies/Bullet.tscn")
+onready var score_popup_scene = load("res://scenes/UI/ScorePopup.tscn")
 
 var shoot_time = 6
+var score_points = 50
 
 var is_dead = false
+
+signal enemy_dead
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +17,8 @@ func _ready():
 		return
 	
 	set_frames(it_node)
+	
+	connect("enemy_dead", get_parent(), "on_enemy_died", [score_points])
 	
 	start_aiming()
 
@@ -55,3 +61,9 @@ func die():
 	if !is_dead:
 		is_dead = true
 		$AnimationPlayer.play("Die")
+		emit_signal("enemy_dead")
+		
+		var score_popup = score_popup_scene.instance()
+		score_popup.position = Vector2(0, -16)
+		score_popup.set_score(score_points)
+		add_child(score_popup)

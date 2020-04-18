@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/images/enemies/pirate_1.png" type="Texture" id=1]
 [ext_resource path="res://scenes/enemies/Pirate.gd" type="Script" id=2]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 resource_name = "Die"
 length = 10.0
 tracks/0/type = "bezier"
@@ -71,7 +71,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 6, 9.8 )
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "Idle"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -86,8 +86,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Shoot"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -115,10 +114,10 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3, 6 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 6, 9 )
 
 [node name="Pirate" type="KinematicBody2D"]
@@ -133,13 +132,13 @@ hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
-anims/Die = SubResource( 5 )
-anims/Idle = SubResource( 3 )
-anims/Shoot = SubResource( 2 )
+anims/Die = SubResource( 1 )
+anims/Idle = SubResource( 2 )
+anims/Shoot = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -6 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -154,6 +153,6 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetector"]
 position = Vector2( 0, -8 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="body_entered" from="BulletDetector" to="." method="_on_BulletDetector_body_entered"]

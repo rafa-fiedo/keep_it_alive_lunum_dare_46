@@ -16,6 +16,11 @@ func _input(event):
 		$Pause.visible = true
 		get_tree().paused = true
 
+func on_enemy_died(score_value):
+	score += score_value
+	killed_enemies += 1
+	
+
 func _on_ScoreTimer_timeout():
 	score += 1
 	$Score.text = str(score)
