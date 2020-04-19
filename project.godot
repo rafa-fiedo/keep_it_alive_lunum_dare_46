@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="KeepItAlive_LunarDare46"
-run/main_scene="res://scenes/levels/MainLevel.tscn"
+run/main_scene="res://scenes/UI/Menu.tscn"
 config/icon="res://icon.png"
 
 [display]

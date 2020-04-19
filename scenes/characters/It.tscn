@@ -124,11 +124,11 @@ tracks/0/keys = {
 extents = Vector2( 7, 3 )
 
 [node name="It" type="KinematicBody2D"]
+collision_mask = 32
 script = ExtResource( 2 )
 god_mode = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -3 )
 shape = SubResource( 1 )
 

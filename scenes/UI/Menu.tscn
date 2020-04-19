@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/audio/music/2020_04 Sheep it alive - menu.ogg" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
+size = 14
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -70,12 +71,44 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -88.0
+margin_top = -131.0
+margin_right = 87.0
+margin_bottom = -105.0
+rect_pivot_offset = Vector2( 85, 26 )
+custom_fonts/font = SubResource( 1 )
+text = "Play Easy"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -88.0
 margin_top = -97.0
 margin_right = 87.0
 margin_bottom = -71.0
-rect_pivot_offset = Vector2( 88, 54 )
+rect_pivot_offset = Vector2( 85, 26 )
 custom_fonts/font = SubResource( 1 )
-text = "Play"
+text = "Play Normal"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -88.0
+margin_top = -63.0
+margin_right = 87.0
+margin_bottom = -37.0
+rect_pivot_offset = Vector2( 85, 26 )
+custom_fonts/font = SubResource( 1 )
+text = "KEEP IT ALIVE!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -96,8 +129,8 @@ __meta__ = {
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -7.0
-margin_bottom = 7.0
+margin_top = -23.0
+margin_bottom = -6.0
 rect_pivot_offset = Vector2( 87, 25 )
 custom_fonts/font = SubResource( 3 )
 text = "Use left mouse button to give a food"
@@ -127,6 +160,8 @@ __meta__ = {
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]
 [connection signal="meta_clicked" from="RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 
 [editable path="TileMap"]
