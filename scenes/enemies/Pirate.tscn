@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/images/enemies/pirate_1.png" type="Texture" id=1]
 [ext_resource path="res://scenes/enemies/Pirate.gd" type="Script" id=2]
+[ext_resource path="res://assets/images/enemies/bow_animation.png" type="Texture" id=3]
+[ext_resource path="res://assets/audio/samples/pirate_dead.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/samples/arrow_start.wav" type="AudioStream" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Die"
@@ -70,6 +73,20 @@ tracks/5/keys = {
 "points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 6, 9.8 )
 }
+tracks/6/type = "audio"
+tracks/6/path = NodePath("Samples")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 4 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "Idle"
@@ -87,6 +104,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
+length = 1.8
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -113,6 +131,28 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/Bow:frame_coords")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 3, 0 ) ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("Samples")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/keys = {
+"clips": [  ],
+"times": PoolRealArray(  )
+}
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3, 6 )
@@ -130,6 +170,11 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -8 )
 hframes = 4
 
+[node name="Bow" type="Sprite" parent="Sprite"]
+position = Vector2( 0, -6 )
+texture = ExtResource( 3 )
+hframes = 4
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 anims/Die = SubResource( 1 )
@@ -137,6 +182,7 @@ anims/Idle = SubResource( 2 )
 anims/Shoot = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, -6 )
 shape = SubResource( 4 )
 
@@ -145,14 +191,25 @@ wait_time = 3.0
 one_shot = true
 
 [node name="ShootStartPosition" type="Position2D" parent="."]
+visible = false
 position = Vector2( 0, -6 )
 
 [node name="BulletDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetector"]
+visible = false
 position = Vector2( 0, -8 )
 shape = SubResource( 5 )
+
+[node name="BowAiming" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="Samples" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="body_entered" from="BulletDetector" to="." method="_on_BulletDetector_body_entered"]
+[connection signal="timeout" from="BowAiming" to="." method="_on_BowAiming_timeout"]

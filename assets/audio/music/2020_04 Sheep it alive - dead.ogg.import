@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/2020_04 Sheep it alive - dead.ogg-9cf2f4aef310759e58cf0ae84c70b6f6.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/music/2020_04 Sheep it alive - dead.ogg"
+dest_files=[ "res://.import/2020_04 Sheep it alive - dead.ogg-9cf2f4aef310759e58cf0ae84c70b6f6.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

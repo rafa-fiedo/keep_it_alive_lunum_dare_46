@@ -1,17 +1,18 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/images/characters/it.png" type="Texture" id=1]
 [ext_resource path="res://scenes/characters/It.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/samples/dead_it.wav" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 3 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 4, 3 )
+extents = Vector2( 4, 2 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "Die"
-length = 2.0
+length = 2.5
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Sprite:rotation_degrees")
 tracks/0/interp = 1
@@ -20,7 +21,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 180, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.7 )
+"times": PoolRealArray( 0, 1.3 )
 }
 tracks/1/type = "bezier"
 tracks/1/path = NodePath("Sprite:position:x")
@@ -30,7 +31,7 @@ tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.9 )
+"times": PoolRealArray( 0, 1.3 )
 }
 tracks/2/type = "bezier"
 tracks/2/path = NodePath("Sprite:position:y")
@@ -39,8 +40,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"points": PoolRealArray( -4, -0.25, 0, 0.25, 0, -4, -0.25, 0, 0.25, 0, -5, -0.25, 0, 0.25, 0, -4, -0.25, 0, 0.25, 0, -4, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.7, 1, 1.1, 1.4 )
+"points": PoolRealArray( -4, -0.25, 0, 0.25, 0, -4, -0.25, 0, 0.25, 0, -5, -0.25, 0, 0.25, 0, -4, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.3, 2, 2.3 )
 }
 tracks/3/type = "method"
 tracks/3/path = NodePath(".")
@@ -49,12 +50,26 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 1.6 ),
+"times": PoolRealArray( 2.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "game_over"
 } ]
+}
+tracks/4/type = "audio"
+tracks/4/path = NodePath("SoundEffects")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=4]
@@ -66,10 +81,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 0, 1, 0 ]
+"values": [ 6, 7, 8, 9 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -78,15 +93,20 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.3 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "play_eating_sound"
+}, {
 "args": [  ],
 "method": "start_searching_food"
 } ]
 }
 
 [sub_resource type="Animation" id=5]
+length = 0.4
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -94,14 +114,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 1, 2, 3 ]
 }
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 6, 3 )
+extents = Vector2( 7, 3 )
 
 [node name="It" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -113,10 +133,12 @@ position = Vector2( 0, -3 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -2 )
+position = Vector2( 0, -4 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -4 )
-hframes = 2
+vframes = 2
+hframes = 5
+frame = 6
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
@@ -138,7 +160,7 @@ anims/Eating = SubResource( 4 )
 anims/Walking = SubResource( 5 )
 
 [node name="Head" type="Position2D" parent="."]
-position = Vector2( -5, -7 )
+position = Vector2( -5.5, -7 )
 
 [node name="BulletDetector" type="Area2D" parent="."]
 modulate = Color( 1, 0, 0, 1 )
@@ -146,8 +168,15 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetector"]
-position = Vector2( 0, -6 )
+position = Vector2( 0, -7 )
 shape = SubResource( 6 )
+
+[node name="TimerHelper" type="Timer" parent="."]
+one_shot = true
+
+[node name="SoundEffects" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="FoodDetector" to="." method="_on_FoodDetector_area_entered"]
 [connection signal="body_entered" from="BulletDetector" to="." method="_on_BulletDetector_body_entered"]
+[connection signal="timeout" from="TimerHelper" to="." method="_on_TimerHelper_timeout"]
