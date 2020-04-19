@@ -1,11 +1,13 @@
 extends KinematicBody2D
 
 export(int) var speed = 32
-export(float) var food_search_timer = 0.3 # in sec
+export(float) var food_search_timer = 0.2 # in sec
 export(bool) var god_mode = false
 
 var closest_food = null
 var velocity = Vector2()
+
+var banned_foods = []
 
 signal player_died
 
@@ -25,6 +27,11 @@ func _on_FoodDetector_area_entered(area):
 	closest_food = null
 
 func _on_Timer_timeout():
+	if closest_food != null:
+		if $RayCast2D.is_colliding():
+			if is_instance_valid(closest_food):
+				banned_foods.append(closest_food.get_instance_id())
+	
 	if $AnimationPlayer.current_animation == "Die":
 		return
 	animation_change("Walking")
@@ -38,17 +45,23 @@ func _on_Timer_timeout():
 		closest_food = null
 		return
 	
-	var min_distance = (foods[0].global_position - $Head.global_position).length()
-	var min_node = foods[0]
+	var min_distance = 9999999
+	var min_node = null
 	
-	for i in range(1, len(foods)):
+	for i in range(0, len(foods)):
+		if banned_foods.has(foods[i].get_instance_id()):
+			continue
+		
 		var check_distance = (foods[i].global_position - $Head.global_position).length()
 		
 		if check_distance < min_distance:
 			min_distance = check_distance
 			min_node = foods[i]
 	
-	
+	if min_node != null:
+		$RayCast2D.enabled = true
+		$RayCast2D.cast_to = (min_node.global_position - $Head.global_position) * 0.9
+		
 	closest_food = min_node
 
 func start_searching_food():

@@ -176,6 +176,10 @@ one_shot = true
 
 [node name="SoundEffects" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 0, -7 )
+collision_mask = 32
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="FoodDetector" to="." method="_on_FoodDetector_area_entered"]
 [connection signal="body_entered" from="BulletDetector" to="." method="_on_BulletDetector_body_entered"]
