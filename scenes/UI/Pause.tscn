@@ -3,10 +3,10 @@
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/levels/Pause.gd" type="Script" id=2]
 
-[sub_resource type="CanvasItemMaterial" id=3]
+[sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 1
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 1 )
 
 [node name="Pause" type="Node2D"]
@@ -19,24 +19,24 @@ script = ExtResource( 2 )
 color = Color( 0.266667, 0.266667, 0.266667, 1 )
 
 [node name="Button" type="Button" parent="."]
-material = SubResource( 3 )
+material = SubResource( 1 )
 margin_left = 200.0
 margin_top = 152.0
 margin_right = 248.0
 margin_bottom = 172.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "Menu"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button2" type="Button" parent="."]
-material = SubResource( 3 )
+material = SubResource( 1 )
 margin_left = 192.0
 margin_top = 112.0
 margin_right = 259.0
 margin_bottom = 138.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "Resume"
 __meta__ = {
 "_edit_use_anchors_": false

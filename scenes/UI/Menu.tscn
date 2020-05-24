@@ -133,7 +133,7 @@ margin_top = -23.0
 margin_bottom = -6.0
 rect_pivot_offset = Vector2( 87, 25 )
 custom_fonts/font = SubResource( 3 )
-text = "Use left mouse button to give a food"
+text = "Use left mouse button to give a food (space to pause)"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
